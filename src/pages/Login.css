@@ -1,0 +1,22 @@
+.or {
+    text-align: center;
+}
+
+.btns-div {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.btn-tag {
+    margin: 0;
+}
+
+.fgButtons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.textfield {
+    margin-bottom: 15px;
+} 
