@@ -6,24 +6,28 @@ import IconButton from "@material-ui/core/IconButton";
 import { InputAdornment } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import {User} from '../service/user'
+const user = new User()
+
+
 
 export default function Login() {
-  const validEmail = new RegExp("^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$");
+  const validEmailId = new RegExp("^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$");
   const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
   const headerStyle = {color:'black', margin: '10px 625px' }
   
   const [showPassword, setShowPassword] = React.useState("false");
-  const [email, setEmail] = React.useState("");
+  const [emailId, setemailId] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [emailError, setEmailError] = React.useState("false");
+  const [emailIdError, setemailIdError] = React.useState("false");
   const [passwordError, setPasswordError] = React.useState("false");
   //const history = useHistory();
 
   const handleClickShowPassword = () => {
     showPassword ? setShowPassword(false) : setShowPassword(true);
   };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
+  const handleemailId = (e) => {
+    setemailId(e.target.value);
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
@@ -31,17 +35,17 @@ export default function Login() {
   const validation = () => {
     console.log("here");
     let isError = false;
-    if (email === "" || !validEmail.test(email)) {
-      setEmailError(false);
+    if (emailId === "" || !validEmailId.test(emailId)) {
+      setemailIdError(false);
     } else {
-      setEmailError(true);
+      setemailIdError(true);
     }
     if (password === "" || !validPassword.test(password)) {
       setPasswordError(false);
     } else {
       setPasswordError(true);
     }
-    isError = emailError || passwordError;
+    isError = emailIdError || passwordError;
     return isError;
   };
   
@@ -49,6 +53,19 @@ export default function Login() {
     let isValid = validation();
     if (!isValid) {
       console.log("failed");
+    }else{
+        let data = {
+            emailId: emailId,
+            password: password,
+        };
+        user.userLogin(data).then((res)=>{
+            localStorage.setItem("token", res.data.data)
+            console.log(res.data.message);
+            alert('You have been successfully logged in!!')
+        }).catch(error =>{
+            console.log(error.message)
+        })
+        
     }
   };
 
@@ -57,11 +74,11 @@ export default function Login() {
         <h1 style={headerStyle}>Login</h1>
       <div className="textfield">
         <TextField
-          name="email"
-          error={!emailError}
-          helperText={!emailError ? "Invalid email" : " "}
-          onChange={handleEmail}
-          label="Email ID"
+          name="emailId"
+          error={!emailIdError}
+          helperText={!emailIdError ? "Invalid emailId" : " "}
+          onChange={handleemailId}
+          label="email ID"
           variant="outlined"
           size="small"
           fullWidth
