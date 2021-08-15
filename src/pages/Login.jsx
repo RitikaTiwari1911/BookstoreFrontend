@@ -59,7 +59,7 @@ export default function Login() {
             password: password,
         };
         user.userLogin(data).then((res)=>{
-            localStorage.setItem("token", res.data.data)
+            localStorage.setItem("token", res.data.token)
             console.log(res.data.message);
             alert('You have been successfully logged in!!')
         }).catch(error =>{
