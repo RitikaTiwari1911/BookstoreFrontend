@@ -14,7 +14,7 @@ const user = new User()
 export default function Login() {
   const validEmailId = new RegExp("^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$");
   const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
-  const headerStyle = {color:'black', margin: '10px 625px' }
+  const headerStyle = {color:'black', margin: '20px 150px' }
   
   const [showPassword, setShowPassword] = React.useState("false");
   const [emailId, setemailId] = React.useState("");
@@ -70,7 +70,7 @@ export default function Login() {
   };
 
   return (
-    <div>        
+    <div className = "box">        
         <h1 style={headerStyle}>Login</h1>
       <div className="textfield">
         <TextField
